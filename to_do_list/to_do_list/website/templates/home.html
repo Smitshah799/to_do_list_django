@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}
+Home
+{% endblock %}
+{% block navuser %}
+<span class="nav-item nav-link hello-msg">{{ request.session.username }}</span>
+{% endblock %}
+{% block content %}
+<h1 align="center">Notes</h1>
+<ul class="list-group list-group-flush" id="notes">
+    {% if notes %}
+        {% for note in notes %}
+            <li class="list-group-item">
+                {{ note.data }}
+                <a href="{% url 'delete_note' note.id %}" class="close" aria-label="Delete">
+                    <span aria-hidden="true">&times;</span>
+                </a>
+            </li>
+        {% endfor %}
+    {% else %}
+        <li class="list-group-item">No notes available.</li>
+    {% endif %}
+</ul>
+<form method="POST">
+    {% csrf_token %}
+    {{form.data}}
+    
+    <br />
+    <div align="center">
+        <button type="submit" class="btn btn-primary">Add Note</button>
+    </div>
+</form>
+<script type="text/javascript">
+            window.onload = function() {
+                if (window.history.replaceState) {
+                    window.history.replaceState(null, null, window.location.href);
+                }
+            }
+        </script>
+<script type="text/javascript">
+    history.pushState(null, null, document.URL);
+    window.addEventListener('popstate', function () {
+        history.pushState(null, null, document.URL);
+    });
+</script>
+{% endblock %}

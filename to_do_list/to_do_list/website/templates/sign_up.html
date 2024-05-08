@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Sign Up
+{% endblock %}
+
+{% block content %}
+    <form method="POST" action="">
+        {% csrf_token %}
+        <h3 align="center">Sign Up</h3>
+        <div class="form-group">
+            <label for="{{ form.username.id_for_label }}">
+                {{ form.username.label }}
+            </label>
+            <br/>
+            <div class="input-group mb-3">
+                {{ form.username }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="{{ form.email.id_for_label }}">
+                {{ form.email.label }}
+            </label>
+            <br/>
+            <div class="input-group mb-3">
+                {{ form.email }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="{{ form.password1.id_for_label }}">
+                {{ form.password1.label }}
+            </label>
+            <br/>
+            <div class="input-group mb-3">
+                {{ form.password1 }}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="{{ form.password2.id_for_label }}">
+                {{ form.password2.label }}
+            </label>
+            <br/>
+            <div class="input-group mb-3">
+                {{ form.password2 }}
+            </div>
+        </div>
+        <br/>
+        <button type="submit" class="btn btn-primary">
+            Submit
+        </button>
+    </form>
+    {% if form.errors %}
+        <div class="alert alert-danger" role="alert">
+            <strong>Error(s):</strong>
+            <ul>
+                {% for field, errors in form.errors.items %}
+                    <li>{{ field }}: {{ errors }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+    <script>
+        // Add placeholder and class attributes using JavaScript (optional)
+        document.getElementById("id_username").setAttribute("placeholder", "Enter Username");
+        document.getElementById("id_username").classList.add("form-control");
+        
+        document.getElementById("id_email").setAttribute("placeholder", "Enter Email");
+        document.getElementById("id_email").classList.add("form-control");
+        
+        document.getElementById("id_password1").setAttribute("placeholder", "Enter Password");
+        document.getElementById("id_password1").classList.add("form-control");
+        
+        document.getElementById("id_password2").setAttribute("placeholder", "Confirm Password");
+        document.getElementById("id_password2").classList.add("form-control");
+    </script>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}
+Admin Home
+{% endblock %}
+
+{% block navuser %}
+<span class="nav-item nav-link hello-msg">{{ request.session.username }}</span>
+{% endblock %}
+
+{% block content %}
+<div align="center">
+    <h2>All Users Posts</h1>
+</div>
+
+{% for user_data_entry in user_data %}
+    <div align="center">
+        <h4>{{ user_data_entry.user.name }}</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Post ID</th>
+                    <th scope="col">Post Content</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for post in user_data_entry.posts %}
+                    <tr>
+                        <th scope="row">{{ post.id }}</th>
+                        <td>{{ post.data }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endfor %}
+<script type="text/javascript">
+    window.onload = function() {
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+    }
+</script>
+{% endblock %}
